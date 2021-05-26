@@ -76,3 +76,4 @@ C:\Users\arnulfo\Documents\GitHub\e-market\obj\Debug\e-market.csproj.CoreCompile
 C:\Users\arnulfo\Documents\GitHub\e-market\obj\Debug\e-market.csproj.CopyComplete
 C:\Users\arnulfo\Documents\GitHub\e-market\obj\Debug\e-market.dll
 C:\Users\arnulfo\Documents\GitHub\e-market\obj\Debug\e-market.pdb
+C:\Users\arnulfo\Documents\GitHub\e-market\obj\Debug\e-market.csprojAssemblyReference.cache
