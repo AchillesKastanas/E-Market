@@ -77,3 +77,7 @@ C:\Users\arnulfo\Documents\GitHub\e-market\obj\Debug\e-market.csproj.CopyComplet
 C:\Users\arnulfo\Documents\GitHub\e-market\obj\Debug\e-market.dll
 C:\Users\arnulfo\Documents\GitHub\e-market\obj\Debug\e-market.pdb
 C:\Users\arnulfo\Documents\GitHub\e-market\obj\Debug\e-market.csprojAssemblyReference.cache
+C:\Users\arnulfo\Documents\GitHub\e-market\bin\EntityFramework.dll
+C:\Users\arnulfo\Documents\GitHub\e-market\bin\EntityFramework.SqlServer.dll
+C:\Users\arnulfo\Documents\GitHub\e-market\bin\EntityFramework.xml
+C:\Users\arnulfo\Documents\GitHub\e-market\bin\EntityFramework.SqlServer.xml

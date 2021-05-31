@@ -11,7 +11,6 @@ namespace e_market.Controllers
     {
         public ActionResult Index()
         {
-            // This is a comment
             return View();
         }
 
