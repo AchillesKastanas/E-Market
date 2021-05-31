@@ -7,6 +7,7 @@ namespace emarket.Models
 {
     public class Users
     {
+        public int UserId { get; set; }
         public string Firstname { get; set; }
         public string LastName { get; set; }
         public int Phone { get; set; }
