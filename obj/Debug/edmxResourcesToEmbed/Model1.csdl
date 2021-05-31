@@ -1,0 +1,340 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="emarketModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="cart">
+    <Key>
+      <PropertyRef Name="cartID" />
+    </Key>
+    <Property Name="cartID" Type="Int32" Nullable="false" />
+    <Property Name="userID" Type="Int32" Nullable="false" />
+    <Property Name="sessionID" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="user" Relationship="Self.cart_fk0" FromRole="cart" ToRole="users" />
+    <NavigationProperty Name="cart_item" Relationship="Self.cart_item_fk0" FromRole="cart" ToRole="cart_item" />
+  </EntityType>
+  <EntityType Name="cart_item">
+    <Key>
+      <PropertyRef Name="cartItemID" />
+    </Key>
+    <Property Name="cartItemID" Type="Int32" Nullable="false" />
+    <Property Name="cartID" Type="Int32" Nullable="false" />
+    <Property Name="productID" Type="Int32" Nullable="false" />
+    <Property Name="price" Type="Double" Nullable="false" />
+    <Property Name="quantity" Type="Int32" Nullable="false" />
+    <Property Name="inCart" Type="Int16" Nullable="false" />
+    <NavigationProperty Name="cart" Relationship="Self.cart_item_fk0" FromRole="cart_item" ToRole="cart" />
+    <NavigationProperty Name="product" Relationship="Self.cart_item_fk1" FromRole="cart_item" ToRole="product" />
+  </EntityType>
+  <EntityType Name="order_item">
+    <Key>
+      <PropertyRef Name="orderItemID" />
+    </Key>
+    <Property Name="orderItemID" Type="Int32" Nullable="false" />
+    <Property Name="orderID" Type="Int32" Nullable="false" />
+    <Property Name="productID" Type="Int32" Nullable="false" />
+    <Property Name="price" Type="Double" Nullable="false" />
+    <Property Name="quantity" Type="Int32" Nullable="false" />
+    <Property Name="createdAt" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="updatedAt" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="order" Relationship="Self.order_item_fk0" FromRole="order_item" ToRole="orders" />
+    <NavigationProperty Name="product" Relationship="Self.order_item_fk1" FromRole="order_item" ToRole="product" />
+  </EntityType>
+  <EntityType Name="order">
+    <Key>
+      <PropertyRef Name="orderID" />
+    </Key>
+    <Property Name="orderID" Type="Int32" Nullable="false" />
+    <Property Name="userID" Type="Int32" Nullable="false" />
+    <Property Name="sessionID" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="orderStatus" Type="Int32" Nullable="false" />
+    <Property Name="subtotal" Type="Double" Nullable="false" />
+    <Property Name="tax" Type="Double" />
+    <Property Name="shipping" Type="Double" />
+    <Property Name="total" Type="Double" Nullable="false" />
+    <Property Name="fName" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="lName" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="mobile" Type="Int32" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="address" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="city" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="zipCode" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="createdAt" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="updatedAt" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="order_item" Relationship="Self.order_item_fk0" FromRole="orders" ToRole="order_item" />
+    <NavigationProperty Name="user" Relationship="Self.orders_fk0" FromRole="orders" ToRole="users" />
+    <NavigationProperty Name="transactions" Relationship="Self.transactions_fk1" FromRole="orders" ToRole="transactions" />
+  </EntityType>
+  <EntityType Name="product">
+    <Key>
+      <PropertyRef Name="productID" />
+    </Key>
+    <Property Name="productID" Type="Int32" Nullable="false" />
+    <Property Name="userID" Type="Int32" Nullable="false" />
+    <Property Name="categoryID" Type="Int32" Nullable="false" />
+    <Property Name="price" Type="Double" Nullable="false" />
+    <Property Name="availableQTY" Type="Int16" Nullable="false" />
+    <Property Name="prodType" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CanBeBought" Type="Int16" Nullable="false" />
+    <Property Name="title" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="info" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+    <Property Name="updatedAt" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="cart_item" Relationship="Self.cart_item_fk1" FromRole="product" ToRole="cart_item" />
+    <NavigationProperty Name="order_item" Relationship="Self.order_item_fk1" FromRole="product" ToRole="order_item" />
+    <NavigationProperty Name="user" Relationship="Self.product_fk0" FromRole="product" ToRole="users" />
+    <NavigationProperty Name="product_category" Relationship="Self.product_fk1" FromRole="product" ToRole="product_category" />
+  </EntityType>
+  <EntityType Name="product_category">
+    <Key>
+      <PropertyRef Name="categoryID" />
+    </Key>
+    <Property Name="categoryID" Type="Int32" Nullable="false" />
+    <Property Name="categoryName" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="products" Relationship="Self.product_fk1" FromRole="product_category" ToRole="product" />
+  </EntityType>
+  <EntityType Name="transaction">
+    <Key>
+      <PropertyRef Name="transactionID" />
+    </Key>
+    <Property Name="transactionID" Type="Int32" Nullable="false" />
+    <Property Name="userID" Type="Int32" Nullable="false" />
+    <Property Name="orderID" Type="Int32" Nullable="false" />
+    <Property Name="status" Type="Int32" Nullable="false" />
+    <Property Name="createdAt" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="updatedAt" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="paymentGatewayID" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="order" Relationship="Self.transactions_fk1" FromRole="transactions" ToRole="orders" />
+    <NavigationProperty Name="user" Relationship="Self.transactions_fk0" FromRole="transactions" ToRole="users" />
+  </EntityType>
+  <EntityType Name="user">
+    <Key>
+      <PropertyRef Name="userID" />
+    </Key>
+    <Property Name="userID" Type="Int32" Nullable="false" />
+    <Property Name="fName" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="lName" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="mobile" Type="Int32" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="passwordHash" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="isAdmin" Type="Byte" Nullable="false" />
+    <Property Name="isRegistered" Type="Byte" Nullable="false" />
+    <Property Name="isVendor" Type="Byte" Nullable="false" />
+    <Property Name="lastLogin" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="carts" Relationship="Self.cart_fk0" FromRole="users" ToRole="cart" />
+    <NavigationProperty Name="orders" Relationship="Self.orders_fk0" FromRole="users" ToRole="orders" />
+    <NavigationProperty Name="products" Relationship="Self.product_fk0" FromRole="users" ToRole="product" />
+    <NavigationProperty Name="transactions" Relationship="Self.transactions_fk0" FromRole="users" ToRole="transactions" />
+    <NavigationProperty Name="vendors" Relationship="Self.vendors_fk0" FromRole="users" ToRole="vendors" />
+  </EntityType>
+  <EntityType Name="vendor">
+    <Key>
+      <PropertyRef Name="vendorID" />
+    </Key>
+    <Property Name="vendorID" Type="Int32" Nullable="false" />
+    <Property Name="userID" Type="Int32" Nullable="false" />
+    <Property Name="locationOfStore" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="info" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="user" Relationship="Self.vendors_fk0" FromRole="vendors" ToRole="users" />
+  </EntityType>
+  <Association Name="cart_fk0">
+    <End Role="users" Type="Self.user" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="cart" Type="Self.cart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="userID" />
+      </Principal>
+      <Dependent Role="cart">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="cart_item_fk0">
+    <End Role="cart" Type="Self.cart" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="cart_item" Type="Self.cart_item" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cart">
+        <PropertyRef Name="cartID" />
+      </Principal>
+      <Dependent Role="cart_item">
+        <PropertyRef Name="cartID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="cart_item_fk1">
+    <End Role="product" Type="Self.product" Multiplicity="1" />
+    <End Role="cart_item" Type="Self.cart_item" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="product">
+        <PropertyRef Name="productID" />
+      </Principal>
+      <Dependent Role="cart_item">
+        <PropertyRef Name="productID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="order_item_fk0">
+    <End Role="orders" Type="Self.order" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="order_item" Type="Self.order_item" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="orders">
+        <PropertyRef Name="orderID" />
+      </Principal>
+      <Dependent Role="order_item">
+        <PropertyRef Name="orderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="order_item_fk1">
+    <End Role="product" Type="Self.product" Multiplicity="1" />
+    <End Role="order_item" Type="Self.order_item" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="product">
+        <PropertyRef Name="productID" />
+      </Principal>
+      <Dependent Role="order_item">
+        <PropertyRef Name="productID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="orders_fk0">
+    <End Role="users" Type="Self.user" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="orders" Type="Self.order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="userID" />
+      </Principal>
+      <Dependent Role="orders">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="transactions_fk1">
+    <End Role="orders" Type="Self.order" Multiplicity="1" />
+    <End Role="transactions" Type="Self.transaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="orders">
+        <PropertyRef Name="orderID" />
+      </Principal>
+      <Dependent Role="transactions">
+        <PropertyRef Name="orderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="product_fk0">
+    <End Role="users" Type="Self.user" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="product" Type="Self.product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="userID" />
+      </Principal>
+      <Dependent Role="product">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="product_fk1">
+    <End Role="product_category" Type="Self.product_category" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="product" Type="Self.product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="product_category">
+        <PropertyRef Name="categoryID" />
+      </Principal>
+      <Dependent Role="product">
+        <PropertyRef Name="categoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="transactions_fk0">
+    <End Role="users" Type="Self.user" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="transactions" Type="Self.transaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="userID" />
+      </Principal>
+      <Dependent Role="transactions">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="vendors_fk0">
+    <End Role="users" Type="Self.user" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="vendors" Type="Self.vendor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="userID" />
+      </Principal>
+      <Dependent Role="vendors">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="emarketEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="carts" EntityType="Self.cart" />
+    <EntitySet Name="cart_item" EntityType="Self.cart_item" />
+    <EntitySet Name="order_item" EntityType="Self.order_item" />
+    <EntitySet Name="orders" EntityType="Self.order" />
+    <EntitySet Name="products" EntityType="Self.product" />
+    <EntitySet Name="product_category" EntityType="Self.product_category" />
+    <EntitySet Name="transactions" EntityType="Self.transaction" />
+    <EntitySet Name="users" EntityType="Self.user" />
+    <EntitySet Name="vendors" EntityType="Self.vendor" />
+    <AssociationSet Name="cart_fk0" Association="Self.cart_fk0">
+      <End Role="users" EntitySet="users" />
+      <End Role="cart" EntitySet="carts" />
+    </AssociationSet>
+    <AssociationSet Name="cart_item_fk0" Association="Self.cart_item_fk0">
+      <End Role="cart" EntitySet="carts" />
+      <End Role="cart_item" EntitySet="cart_item" />
+    </AssociationSet>
+    <AssociationSet Name="cart_item_fk1" Association="Self.cart_item_fk1">
+      <End Role="product" EntitySet="products" />
+      <End Role="cart_item" EntitySet="cart_item" />
+    </AssociationSet>
+    <AssociationSet Name="order_item_fk0" Association="Self.order_item_fk0">
+      <End Role="orders" EntitySet="orders" />
+      <End Role="order_item" EntitySet="order_item" />
+    </AssociationSet>
+    <AssociationSet Name="order_item_fk1" Association="Self.order_item_fk1">
+      <End Role="product" EntitySet="products" />
+      <End Role="order_item" EntitySet="order_item" />
+    </AssociationSet>
+    <AssociationSet Name="orders_fk0" Association="Self.orders_fk0">
+      <End Role="users" EntitySet="users" />
+      <End Role="orders" EntitySet="orders" />
+    </AssociationSet>
+    <AssociationSet Name="transactions_fk1" Association="Self.transactions_fk1">
+      <End Role="orders" EntitySet="orders" />
+      <End Role="transactions" EntitySet="transactions" />
+    </AssociationSet>
+    <AssociationSet Name="product_fk0" Association="Self.product_fk0">
+      <End Role="users" EntitySet="users" />
+      <End Role="product" EntitySet="products" />
+    </AssociationSet>
+    <AssociationSet Name="product_fk1" Association="Self.product_fk1">
+      <End Role="product_category" EntitySet="product_category" />
+      <End Role="product" EntitySet="products" />
+    </AssociationSet>
+    <AssociationSet Name="transactions_fk0" Association="Self.transactions_fk0">
+      <End Role="users" EntitySet="users" />
+      <End Role="transactions" EntitySet="transactions" />
+    </AssociationSet>
+    <AssociationSet Name="vendors_fk0" Association="Self.vendors_fk0">
+      <End Role="users" EntitySet="users" />
+      <End Role="vendors" EntitySet="vendors" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
