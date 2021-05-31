@@ -24,6 +24,16 @@ bld/
 # Uncomment if you have tasks that create the project's static files in wwwroot
 #wwwroot/
 
-e-market.csproj
+emarket.csproj
 Model1.*
 *.sln
+cart_item.cs
+cart.cs
+order_item.cs
+order.cs
+product_category.cs
+product.cs
+transaction.cs
+user.cs
+vendor.cs
+Web.config
