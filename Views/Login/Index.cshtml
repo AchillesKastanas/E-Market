@@ -7,7 +7,9 @@
 @using (Html.BeginForm("Login", "Login", FormMethod.Post))  
 {  
     <fieldset>  
-        <legend>Mvc Simple Login Application Demo</legend>  
+        <h3 style="font-family: Century Gothic">Welcome!</h3>
+        <h5 style="font-family: Century Gothic; margin-bottom: 30px;">Please provide your credentials..</h5>  
+
   
         @Html.AntiForgeryToken()  
         @Html.ValidationSummary(true)  

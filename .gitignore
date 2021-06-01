@@ -26,7 +26,6 @@ bld/
 
 emarket.csproj
 Model1.*
-*.sln
 cart_item.cs
 cart.cs
 order_item.cs
