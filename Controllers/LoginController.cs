@@ -24,15 +24,15 @@ namespace emarket.Controllers
             {
                 using (emarketEntities db = new emarketEntities())
                 {
-                    var obj = db.users.FirstOrDefault(
+                    var query = db.users.FirstOrDefault(
                         usr => usr.email.Equals(user.Email) &&
-                        usr.passwordHash.Equals(user.Password)
+                               usr.passwordHash.Equals(user.Password)
                     );
-                    if (obj != null)
+                    if (query != null)
                     {
-                        Session["UserID"] = obj.userID.ToString();
-                        Session["email"] = obj.email;
-                        Session["UserName"] = obj.fName + " " + obj.lName;
+                        Session["UserID"] = query.userID.ToString();
+                        Session["email"] = query.email;
+                        Session["UserName"] = query.fName + " " + query.lName;
                         return RedirectToAction("UserDashBoard");
                     }
                 }
@@ -66,20 +66,20 @@ namespace emarket.Controllers
                 using (emarketEntities db = new emarketEntities())
                 { 
                     // Check if the email used already exists in the DB
-                    var obj = db.users.FirstOrDefault(
+                    var query = db.users.FirstOrDefault(
                         usr => usr.email.Equals(Reguser.Email)
                     );
-                    //if (obj != null)
+                    //if (query != null)
                     //{
                     //    // not ready
-                    //    Reguser.FirstName = obj.fName;
-                    //    Reguser.LastName = obj.lName;
-                    //    Reguser.Email = obj.email;
-                    //    Reguser.Password = obj.passwordHash;
-                    //    Reguser.FirstName = obj.fName;
-                    //    Reguser.FirstName = obj.fName;
+                    //    Reguser.FirstName = ModelState.;
+                    //    Reguser.LastName = query.lName;
+                    //    Reguser.Email = query.email;
+                    //    Reguser.Password = query.passwordHash;
+                    //    Reguser.FirstName = query.fName;
+                    //    Reguser.FirstName = query.fName;
 
-                    //    db.users.Add(mod);
+                    //    db.users.Add();
                     //}
                 }
             }

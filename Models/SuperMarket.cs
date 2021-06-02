@@ -9,6 +9,6 @@ namespace emarket.Models
     {
         public string Name { get; set; }
         public int VentorID { get; set; }
-        public string Info { get; set; }    
+        public string Info { get; set; }
     }
 }

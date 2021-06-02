@@ -21,19 +21,19 @@
         }  
         <table>  
             <tr>  
-                <td>@Html.LabelFor(a => a.Email)</td>  
-                <td>@Html.TextBoxFor(a => a.Email)</td>  
-                <td>@Html.ValidationMessageFor(a => a.Email)</td>  
+                <td>@Html.LabelFor(usr => usr.Email)</td>  
+                <td>@Html.TextBoxFor(usr => usr.Email)</td>  
+                <td>@Html.ValidationMessageFor(usr => usr.Email)</td>  
             </tr>  
             <tr>  
                 <td>  
-                    @Html.LabelFor(a => a.Password)  
+                    @Html.LabelFor(usr => usr.Password)  
                 </td>  
                 <td>  
-                    @Html.PasswordFor(a => a.Password)  
+                    @Html.PasswordFor(usr => usr.Password)  
                 </td>  
                 <td>  
-                    @Html.ValidationMessageFor(a => a.Password)  
+                    @Html.ValidationMessageFor(usr => usr.Password)  
                 </td>  
             </tr>  
             <tr>  
