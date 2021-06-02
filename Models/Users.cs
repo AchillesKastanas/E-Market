@@ -17,6 +17,6 @@ namespace emarket.Models
         public string Password { get; set; }
         public bool IsAdmin { get; set; }
         public bool IsVendor { get; set; }
-        public string LastLogin { get; set; }
+        //public string LastLogin { get; set; }
     }
 }

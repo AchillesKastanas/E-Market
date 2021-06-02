@@ -20,22 +20,31 @@ namespace emarket.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(Users user)
         {
-            if (ModelState.IsValid)
+            try
             {
-                using (emarketEntities db = new emarketEntities())
+                if (ModelState.IsValid)
                 {
-                    var query = db.users.FirstOrDefault(
-                        usr => usr.email.Equals(user.Email) &&
-                               usr.passwordHash.Equals(user.Password)
-                    );
-                    if (query != null)
+                    using (emarketEntities db = new emarketEntities())
                     {
-                        Session["UserID"] = query.userID.ToString();
-                        Session["email"] = query.email;
-                        Session["UserName"] = query.fName + " " + query.lName;
-                        return RedirectToAction("UserDashBoard");
+                        var query = db.users.FirstOrDefault(
+                            usr => usr.email.Equals(user.Email) &&
+                                   usr.passwordHash.Equals(user.Password)
+                        );
+                        if (query != null)
+                        {
+                            Session["UserID"] = query.userID.ToString();
+                            Session["email"] = query.email;
+                            Session["UserName"] = query.fName + " " + query.lName;
+                            return RedirectToAction("UserDashBoard");
+                        }
                     }
                 }
+            }
+            catch (Exception e)
+            {
+                ViewBag.MyString = "Something went wrong!\nPlease try again..";
+                Console.WriteLine(e);
+                return View("Index");
             }
             return View("Index");
         }
@@ -61,29 +70,53 @@ namespace emarket.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult userRegister(Users Reguser)
         {
-            if (ModelState.IsValid)
+            try
             {
-                using (emarketEntities db = new emarketEntities())
-                { 
-                    // Check if the email used already exists in the DB
-                    var query = db.users.FirstOrDefault(
-                        usr => usr.email.Equals(Reguser.Email)
-                    );
-                    //if (query != null)
-                    //{
-                    //    // not ready
-                    //    Reguser.FirstName = ModelState.;
-                    //    Reguser.LastName = query.lName;
-                    //    Reguser.Email = query.email;
-                    //    Reguser.Password = query.passwordHash;
-                    //    Reguser.FirstName = query.fName;
-                    //    Reguser.FirstName = query.fName;
+                if (ModelState.IsValid)
+                {
+                    using (emarketEntities db = new emarketEntities())
+                    {
+                        // Check if the email used already exists in the DB
+                        var query = db.users.FirstOrDefault(
+                            usr => usr.email.Equals(Reguser.Email)
+                        );
+                        if (query != null) //If the email exists in the db
+                        {
+                            ViewBag.MyString = "User already exists!";
+                            return View("Register");
+                        }
+                        else
+                        {
+                            // if the provided email is not in the db,
+                            // make a db user object pass the provided values to it
+                            // and add it to the database
+                            user newUser = new user();
+                            newUser.userID = Reguser.UserId;
+                            newUser.fName = Reguser.FirstName;
+                            newUser.lName = Reguser.LastName;
+                            newUser.passwordHash = Reguser.Password;
+                            newUser.mobile = Reguser.Phone;
+                            newUser.email = Reguser.Email;
+                            newUser.isAdmin = Convert.ToByte(Reguser.IsAdmin);
+                            newUser.isRegistered = Convert.ToByte(true);
+                            newUser.isVendor = Convert.ToByte(Reguser.IsVendor);
 
-                    //    db.users.Add();
-                    //}
+                            db.Configuration.ValidateOnSaveEnabled = false;
+                            db.users.Add(newUser);
+                            db.SaveChanges();
+                            Login(Reguser); //since the user registered log him in
+                            return RedirectToAction("UserDashBoard");
+                        }
+                    }
                 }
             }
-            return View("Index");
+            catch (Exception e)
+            {
+                ViewBag.MyString = "Something went wrong!\nPlease try again..";
+                Console.WriteLine(e);
+                return View("Register");
+            }
+            return View("Register");
         }
     }
 }

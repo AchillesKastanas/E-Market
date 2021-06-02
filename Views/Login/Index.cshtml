@@ -6,43 +6,44 @@
   
 @using (Html.BeginForm("Login", "Login", FormMethod.Post))  
 {  
-    <fieldset>  
+    <fieldset>
         <h3 style="font-family: Century Gothic">Welcome!</h3>
-        <h5 style="font-family: Century Gothic; margin-bottom: 30px;">Please provide your credentials..</h5>  
+        <h5 style="font-family: Century Gothic; margin-bottom: 30px;">Please provide your credentials..</h5>
 
-  
-        @Html.AntiForgeryToken()  
-        @Html.ValidationSummary(true)  
-        @if (@ViewBag.Message != null)  
-        {  
-            <div style="border: 1px solid red">  
-                @ViewBag.Message  
-            </div>  
-        }  
-        <table>  
-            <tr>  
-                <td>@Html.LabelFor(usr => usr.Email)</td>  
-                <td>@Html.TextBoxFor(usr => usr.Email)</td>  
-                <td>@Html.ValidationMessageFor(usr => usr.Email)</td>  
-            </tr>  
-            <tr>  
-                <td>  
-                    @Html.LabelFor(usr => usr.Password)  
-                </td>  
-                <td>  
-                    @Html.PasswordFor(usr => usr.Password)  
-                </td>  
-                <td>  
-                    @Html.ValidationMessageFor(usr => usr.Password)  
-                </td>  
-            </tr>  
-            <tr>  
-                <td></td>  
-                <td>  
-                    <input type="submit" value="Login" />  
-                </td>  
-                <td></td>  
-            </tr>  
-        </table>  
+
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        @if (@ViewBag.Message != null)
+        {
+            <div style="border: 1px solid red">
+                @ViewBag.Message
+            </div>
+        }
+        <table>
+            <tr>
+                <td>@Html.LabelFor(usr => usr.Email)</td>
+                <td>@Html.TextBoxFor(usr => usr.Email)</td>
+                <td>@Html.ValidationMessageFor(usr => usr.Email)</td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(usr => usr.Password)
+                </td>
+                <td>
+                    @Html.PasswordFor(usr => usr.Password)
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(usr => usr.Password)
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input type="submit" value="Login" />
+                </td>
+                <td></td>
+            </tr>
+        </table>
+        <h4 style="background-color: lightcoral;">@ViewBag.MyString</h4>
     </fieldset>  
 }
