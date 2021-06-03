@@ -66,12 +66,12 @@ namespace emarket.Controllers
             return View();
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+
         public ActionResult userRegister(Users Reguser)
         {
             try
             {
+                
                 if (ModelState.IsValid)
                 {
                     using (emarketEntities db = new emarketEntities())

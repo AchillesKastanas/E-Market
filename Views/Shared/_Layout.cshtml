@@ -20,19 +20,17 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home Page", "Index", "Home")</li>
                     <li>@Html.ActionLink("Login", "Index", "Login")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Register", "Register", "Login")</li>
+                    <li>@Html.ActionLink("Our Stores", "Index", "Store")</li>
+                    <li>@Html.ActionLink("Cart", "Cart", "Store")</li>
                 </ul>
             </div>
         </div>
     </div>
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - E-Market AC</p>
-        </footer>
     </div>
 
     @Scripts.Render("~/bundles/jquery")

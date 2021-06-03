@@ -14,6 +14,13 @@ namespace emarket
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "Store",
+                url: "Store/{action}",
+                defaults: new { controller = "Store", action = "Index" }
+
+            );
+
+            routes.MapRoute(
                 name: "Login",
                 url: "Login/{action}",
                 defaults: new { controller = "Login", action = "Index" }
