@@ -22,20 +22,24 @@ namespace emarket.Controllers
         {
             try
             {
-                if (ModelState.IsValid)
+                using (emarketEntities db = new emarketEntities())
                 {
-                    using (emarketEntities db = new emarketEntities())
+                    var query = db.users.FirstOrDefault(
+                        usr => usr.email.Equals(user.Email) &&
+                               usr.passwordHash.Equals(user.Password)
+                );
+                    if (query != null)
                     {
-                        var query = db.users.FirstOrDefault(
-                            usr => usr.email.Equals(user.Email) &&
-                                   usr.passwordHash.Equals(user.Password)
-                        );
-                        if (query != null)
+                        Session["UserID"] = query.userID.ToString();
+                        Session["email"] = query.email;
+                        Session["UserName"] = query.fName + " " + query.lName;
+                        if (Session["UserID"] != null)
                         {
-                            Session["UserID"] = query.userID.ToString();
-                            Session["email"] = query.email;
-                            Session["UserName"] = query.fName + " " + query.lName;
-                            return RedirectToAction("UserDashBoard");
+                            return RedirectToAction("Index", "Home");
+                        }
+                        else
+                        {
+                            return View("Index");
                         }
                     }
                 }
@@ -49,31 +53,19 @@ namespace emarket.Controllers
             return View("Index");
         }
 
-        public ActionResult UserDashBoard()
-        {
-            if (Session["UserID"] != null)
-            {
-                return View();
-            }
-            else
-            {
-                return RedirectToAction("Index");
-            }
-        }
-
         public ActionResult Register()
         {
             return View();
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+
         public ActionResult userRegister(Users Reguser)
         {
             try
             {
-                if (ModelState.IsValid)
-                {
+                
+                //if (ModelState.IsValid)
+                //{
                     using (emarketEntities db = new emarketEntities())
                     {
                         // Check if the email used already exists in the DB
@@ -108,7 +100,7 @@ namespace emarket.Controllers
                             return RedirectToAction("UserDashBoard");
                         }
                     }
-                }
+                //}
             }
             catch (Exception e)
             {

@@ -10,99 +10,118 @@
 <body>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryval")
-    
-    
-    @using (Html.BeginForm("userRegister", "Login", FormMethod.Post)) 
+
+
+    @using (Html.BeginForm("userRegister", "Login", FormMethod.Post))
     {
         @Html.AntiForgeryToken()
-        
-        <div class="form-horizontal">
-            <h3 style="font-family: Century Gothic">Welcome!</h3>
-            <h5 style="font-family: Century Gothic; margin-bottom: 30px;">Please provide your credentials..</h5> 
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group">
-                @Html.LabelFor(model => model.UserId, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.UserId, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
-                </div>
-            </div>
-    
-            <div class="form-group">
-                @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
-                </div>
-            </div>
-    
-            <div class="form-group">
-                @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
-                </div>
-            </div>
-    
-            <div class="form-group">
-                @Html.LabelFor(model => model.Phone, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
-                </div>
-            </div>
-    
-            <div class="form-group">
-                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-                </div>
-            </div>
-    
-            <div class="form-group">
-                @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-                </div>
-            </div>
-    
-            <div class="form-group">
-                @Html.LabelFor(model => model.IsAdmin, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.IsAdmin, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.IsAdmin, "", new { @class = "text-danger" })
-                </div>
-            </div>
+        @Html.ValidationSummary(true)
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <style>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.IsVendor, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.IsVendor, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.IsVendor, "", new { @class = "text-danger" })
-                </div>
+                * {
+                    margin: 0;
+                    padding: 0;
+                }
+
+                .container {
+                    margin-left: 0px;
+                    margin-right: 0px;
+                    width: 100%;
+                    height: 100%;
+                }
+
+                html, body {
+                    margin: 0;
+                    height: 100%;
+                }
+
+                .mainbody {
+                    text-align: center;
+                    height: 100%;
+                    width: 100%;
+                    background-image: url('/Content/source/register.jpg');
+                }
+
+                table, body {
+                    font-family: 'Monaco', monospace;
+                    color: black;
+                    font-size: 20px;
+                    font-weight: bold;
+                }
+
+                    table.ShopTable {
+                        background-color: transparent;
+                        border-width: 0px;
+                        border: none;
+                    }
+
+                tr.ShopTable {
+                    height: 180px;
+                }
+
+                .inputvalidate {
+                    font-size: 15px;
+                    color : crimson;
+                }
+
+                .inputtextbox {
+                    padding: 10px 50px;
+                    border-width: 0px;
+                    border: none;
+                    background-color: white;
+                    text-align: center;
+                    font-size: 18px;
+                    font-weight: bold;
+                    border-radius: 25px;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="mainbody" style="margin: 0;">
+
+                <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
+
+
+                <h2><span style="color:white;">Δημιουργία νέου Λογαριασμού</span></h2>
+
+                <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
+
+                <table class="ShopTable" style="width: 35%; height: 180px; margin-left: auto; margin-right: auto;">
+                    <tr class="ShopTable">
+                        <td style="width: 100%; height: 18px;">
+                            @Html.TextBoxFor(usr => usr.FirstName, new { @class = "inputtextbox", @placeholder = "First Name" })
+                            <br>
+                            @Html.ValidationMessageFor(usr => usr.FirstName, "", new { @class = "inputvalidate" })
+                            <br><br>
+                            @Html.TextBoxFor(usr => usr.LastName, new { @class = "inputtextbox", @placeholder = "Last Name" })
+                            <br>
+                            @Html.ValidationMessageFor(usr => usr.LastName, "", new { @class = "inputvalidate" })
+                            <br><br>
+                            @Html.PasswordFor(usr => usr.Password, new { @class = "inputtextbox", @placeholder = "Password" })
+                            <br>
+                            @Html.ValidationMessageFor(usr => usr.Password, "", new { @class = "inputvalidate" })
+                            <br><br>
+                            @Html.PasswordFor(usr => usr.ConfirmPassword, new { @class = "inputtextbox", @placeholder = "Confirm Password" })
+                            <br>
+                            @Html.ValidationMessageFor(usr => usr.ConfirmPassword, "", new { @class = "inputvalidate" })
+                            <br><br>
+                            @Html.TextBoxFor(usr => usr.Email, new { @class = "inputtextbox", @placeholder = "example@gmail.com" })
+                            <br>
+                            @Html.ValidationMessageFor(usr => usr.Email, "", new { @class = "inputvalidate" })
+                            <br><br>
+                            @Html.LabelFor(usr => usr.IsAdmin)
+                            @Html.CheckBoxFor(usr => usr.IsAdmin)
+                        </td>
+                    </tr>
+                </table>
+                <br><br><br>
+                <input type="submit" value="Δημιουργία Λογαριασμού" class="inputtextbox" />
+                <h4 style="background-color: lightcoral;">@ViewBag.MyString</h4>
+                <br><br><br><br><br><br><br><br><br><br><br>
             </div>
-    
-            @*<div class="form-group">
-                @Html.LabelFor(model => model.LastLogin, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.LastLogin, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.LastLogin, "", new { @class = "text-danger" })
-                </div>
-            </div>*@
-            <h4 style="background-color: lightcoral;">@ViewBag.MyString</h4>
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
-                </div>
-            </div>
-        </div>
-    }
-    
-    <div>
-        @Html.ActionLink("Back to List", "Index")
-    </div>
 </body>
 </html>
+    }
