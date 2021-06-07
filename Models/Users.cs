@@ -12,12 +12,12 @@ namespace emarket.Models
         public int UserId { get; set; }
 
         //Validation for first name
-        [Required(ErrorMessage = "Please Enter First Name")]
+        [Required(ErrorMessage = "Please enter your first name")]
         [Display(Name = "firstname")]
         public string FirstName { get; set; }
 
         //Validation for last name
-        [Required(ErrorMessage = "Please Enter Last Name")]
+        [Required(ErrorMessage = "Please enter your last name")]
         [Display(Name = "lastname")]
         public string LastName { get; set; }
 
@@ -30,21 +30,20 @@ namespace emarket.Models
         //Validation for Email
         [Required(ErrorMessage = "Please Enter Email Address")]
         [Display(Name = "Email")]
-        [RegularExpression(".+@.+\\..+", ErrorMessage = "Please Enter Correct Email Address")]
+        [RegularExpression(".+@.+\\..+", ErrorMessage = "Please enter a valid email address")]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "Please Enter Password")]
+        [Required(ErrorMessage = "Please enter your password")]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
 
-        [Required(ErrorMessage = "Please Enter Confirm Password")]
+        [Required(ErrorMessage = "Please confirm your Password")]
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
         public bool IsAdmin { get; set; }
         public bool IsVendor { get; set; }
-        //public string LastLogin { get; set; }
     }
 }

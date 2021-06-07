@@ -14,7 +14,7 @@ namespace emarket.Controllers
         {
             return View();
         }
-        
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -63,44 +63,42 @@ namespace emarket.Controllers
         {
             try
             {
-                
-                //if (ModelState.IsValid)
-                //{
-                    using (emarketEntities db = new emarketEntities())
-                    {
-                        // Check if the email used already exists in the DB
-                        var query = db.users.FirstOrDefault(
-                            usr => usr.email.Equals(Reguser.Email)
-                        );
-                        if (query != null) //If the email exists in the db
-                        {
-                            ViewBag.MyString = "User already exists!";
-                            return View("Register");
-                        }
-                        else
-                        {
-                            // if the provided email is not in the db,
-                            // make a db user object pass the provided values to it
-                            // and add it to the database
-                            user newUser = new user();
-                            newUser.userID = Reguser.UserId;
-                            newUser.fName = Reguser.FirstName;
-                            newUser.lName = Reguser.LastName;
-                            newUser.passwordHash = Reguser.Password;
-                            newUser.mobile = Reguser.Phone;
-                            newUser.email = Reguser.Email;
-                            newUser.isAdmin = Convert.ToByte(Reguser.IsAdmin);
-                            newUser.isRegistered = Convert.ToByte(true);
-                            newUser.isVendor = Convert.ToByte(Reguser.IsVendor);
 
-                            db.Configuration.ValidateOnSaveEnabled = false;
-                            db.users.Add(newUser);
-                            db.SaveChanges();
-                            Login(Reguser); //since the user registered log him in
-                            return RedirectToAction("UserDashBoard");
-                        }
+                using (emarketEntities db = new emarketEntities())
+                {
+                    // Check if the email used already exists in the DB
+                    var query = db.users.FirstOrDefault(
+                        usr => usr.email.Equals(Reguser.Email)
+                    );
+                    if (query != null) //If the email exists in the db
+                    {
+                        ViewBag.MyString = "User already exists!";
+                        return View("Register");
                     }
-                //}
+                    else
+                    {
+                        // if the provided email is not in the db,
+                        // make a db user object pass the provided values to it
+                        // and add it to the database
+                        var newUser = new user
+                        {
+                            userID = Reguser.UserId,
+                            fName = Reguser.FirstName,
+                            lName = Reguser.LastName,
+                            passwordHash = Reguser.Password,
+                            mobile = Reguser.Phone,
+                            email = Reguser.Email,
+                            isAdmin = Convert.ToByte(Reguser.IsAdmin),
+                            isVendor = Convert.ToByte(Reguser.IsVendor)
+                        };
+
+                        db.Configuration.ValidateOnSaveEnabled = false;
+                        db.users.Add(newUser);
+                        db.SaveChanges();
+                        Login(Reguser); //since the user registered log him in
+                        //return RedirectToAction("UserDashBoard");
+                    }
+                }
             }
             catch (Exception e)
             {

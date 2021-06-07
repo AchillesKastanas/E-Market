@@ -27,10 +27,10 @@
                 }
 
                 .container {
-                    margin-left: 0px;
-                    margin-right: 0px;
                     width: 100%;
                     height: 100%;
+                    padding: 0px;
+                    margin: 0px;
                 }
 
                 html, body {
@@ -68,7 +68,7 @@
                 }
 
                 .inputtextbox {
-                    padding: 10px 50px;
+                    padding: 10px 35px;
                     border-width: 0px;
                     border: none;
                     background-color: white;
@@ -111,16 +111,19 @@
                             @Html.TextBoxFor(usr => usr.Email, new { @class = "inputtextbox", @placeholder = "example@gmail.com" })
                             <br>
                             @Html.ValidationMessageFor(usr => usr.Email, "", new { @class = "inputvalidate" })
-                            <br><br>
-                            @Html.LabelFor(usr => usr.IsAdmin)
-                            @Html.CheckBoxFor(usr => usr.IsAdmin)
                         </td>
                     </tr>
                 </table>
                 <br><br><br>
                 <input type="submit" value="Δημιουργία Λογαριασμού" class="inputtextbox" />
-                <h4 style="background-color: lightcoral;">@ViewBag.MyString</h4>
-                <br><br><br><br><br><br><br><br><br><br><br>
+                <p style="color: white;
+                          margin-top: 35px;
+                          background-color: red;
+                          width: fit-content;
+                          display: block;
+                          margin-left: auto;
+                          margin-right: auto;">@ViewBag.myString</p>
+                <br><br><br>
             </div>
 </body>
 </html>
