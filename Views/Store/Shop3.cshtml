@@ -1,0 +1,226 @@
+﻿@model List<emarket.Models.Product>
+
+@{
+    ViewBag.Title = "Shop3";
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+
+        .container {
+            width: 100%;
+            height: 100%;
+            padding: 0px;
+            margin: 0px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .mainbody {
+            text-align: center;
+            height: 100%;
+            width: 100%;
+            background-image: url('/Content/source/shoping.jpg');
+        }
+
+        td.button:active {
+            background-color: #3387A0;
+            cursor: pointer;
+        }
+
+        .strokeme {
+            color: white;
+            text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+        }
+
+        td.button:hover {
+            cursor: pointer;
+        }
+
+        .minimalButton {
+            background-color: white;
+            border: none;
+            color: black;
+            padding: 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        table, body {
+            font-family: 'Monaco', monospace;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+            table.ShopTable {
+                background-color: #74D3EC;
+                border: 5px white;
+                border-collapse: collapse;
+                width: 70%;
+                margin-left: auto;
+                margin-right: auto;
+                text-align: center;
+            }
+
+        .btn-group .button {
+            background-color: white;
+            border: none;
+            color: black;
+            padding: 15px 50px;
+            text-align: left;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            cursor: pointer;
+            width: 200px;
+            display: block;
+            padding-left: 5px
+        }
+
+            .btn-group .button:hover {
+                background-color: #e6e6e6;
+            }
+
+        .katigories {
+            background-color: #f2f2f2;
+            color: black;
+            border: none;
+            padding: 15px 50px;
+            text-decoration: none;
+            text-align: left;
+            display: inline-block;
+            font-size: 15px;
+            width: 200px;
+            display: block;
+            padding-left: 5px;
+        }
+
+        .quantity {
+            color: black;
+            width: 50px;
+            border-radius: 5px;
+        }
+
+        #CategoryStyle {
+            color: black;
+            text-align: center;
+            font-size: 25px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="mainbody" style="margin: 0;">
+
+        <br><br><br>
+
+        @using (Html.BeginForm("Index", "Store", FormMethod.Post))
+        {
+            <button class="minimalButton" type="button" name="stores">Επιστροφή στα καταστήματα</button>
+        }
+        <h2 style="margin-top: 8%;"><span style="color:white;">Καλοσωρίσατε στο Σουπερμάρκετ "Φρεσκάδα"</span></h2><br><br>
+        @if (Session["UserName"] == null)
+        {
+            <p>You are currently not logged in, <br> please log in or register first to be able to add items to your cart</p>
+        }
+        <p>@ViewBag.AddedString</p>
+        <center>
+            <table border="0">
+                <tr>
+                    <td></td>
+                    <td style="vertical-align:bottom;" id="CategoryStyle">@ViewBag.Category</td>
+
+                </tr>
+                <tr>
+                    <td></td>
+                    <td style="vertical-align:top;">
+                        <center>
+                            <hr style="width:50%" />
+                        </center>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:20% ; vertical-align:top;">
+                        <center>
+                            <div class="btn-group">
+                                <button class="katigories" disabled>Κατηγορίες</button>
+                                @using (Html.BeginForm("ShopDashBoard", "Store", FormMethod.Post))
+                                {
+                                    <button class="button" name="submitButton" value="Diary" type="submit">Γαλακτοκομικά</button>
+                                    <button class="button" name="submitButton" value="Lunch meat" type="submit">Αλαντικά</button>
+                                    <button class="button" name="submitButton" value="Snacks" type="submit">Ζυμαρικά</button>
+                                    <button class="button" name="submitButton" value="Vegetables" type="submit">Λαχανικά</button>
+                                    <button class="button" name="submitButton" value="Fruit" type="submit">Φρούτα</button>
+                                }
+                            </div>
+                        </center>
+
+                    </td>
+                    <td style="width:80%">
+                        @{
+                            <table class="ShopTable" border="1">
+                                <tr>
+                                    @{int changeRow = 0; /*will be used to change rows after every 3 items*/}
+                                    @foreach (var prod in Model)
+                                    {
+                                        using (Html.BeginForm("Shopping", "Store", FormMethod.Post))
+                                        {
+                                            <td style="width: 33%;">
+                                                @{ changeRow += 1; }
+
+                                                <img src="@prod.sourceOfImage" width="300" height="175" />
+                                                <input type="hidden" id="sourceOfImage" name="sourceOfImage" value="@prod.sourceOfImage" />
+
+                                                @prod.Info
+                                                <input type="hidden" id="info" name="info" value="@prod.Info" />
+                                                <br>
+
+                                                @prod.Price
+                                                <input type="hidden" id="price" name="price" value="@prod.Price" />
+                                                <br>
+
+                                                <input class="quantity" id="quantity" name="quantity" min="0" max="@prod.AvailableQuantity" /><br />
+
+                                                @if (Session["UserID"] != null)
+                                                {
+                                                    <input type="submit" value="Προσθήκη στο καλάθι" class="minimalButton" />
+                                                }
+                                            </td>
+                                            if (changeRow == 3)
+                                            {
+                                                changeRow = 0;
+                                                @Html.Raw("</tr><tr>")
+                                            }
+                                        }
+                                    }
+                                </tr>
+                            </table>
+                        }
+                    </td>
+                </tr>
+            </table>
+        </center>
+        <br><br>
+        Η Τοποθεσία Μας
+        <br><br>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5282.642111595224!2d23.715355374404904!3d38.06856938476487!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14a1a232d3bfb505%3A0x178dfa85d7f098fd!2sRiga%20Fereou%207%2C%20Zefiri%20134%2051!5e0!3m2!1sen!2sgr!4v1622824310085!5m2!1sen!2sgr" width="1335" height="250" style="border:0;" allowfullscreen="" loading="lazy">
+        </iframe>
+        <br><br>
+    </div>
+
+</body>
+</html>
+
