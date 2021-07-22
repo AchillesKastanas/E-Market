@@ -1,4 +1,5 @@
-﻿@model emarket.Models.Cart
+﻿@using emarket.Models
+@model emarket.Models.Cart
 
 <!DOCTYPE html>
 <html>
@@ -75,41 +76,64 @@
             border-radius: 12px;
             font-size: 15px;
             font-weight: bold;
+            margin: 10px;
         }
     </style>
 </head>
-<body style="background-image: url('/Content/source/cart.jpg')">
+<body style="background-image: url('https://bit.ly/3cUTrLx'); background-size: cover;">
+    @if (Convert.ToString(Session["UserID"]) == "")
+    {
+        //Check if the user entering is logged in else send him to the main page
+        Response.Redirect("~/home/index");
+    }
     <div class="mainbody" style="margin: 0;">
 
-        <h2><span style="color:white;">Το προσωπικό σας Καλάθι Αγορών</span></h2>
+        <h2><span style="color: white;">Το προσωπικό σας Καλάθι Αγορών</span></h2>
 
         <table class="ShopTable" style="border-collapse: collapse; width: 75%; height: 90px; margin-left: auto; margin-right: auto;">
-            @foreach(var prod in Model.products) {
             <tr class="ShopTable">
                 <td style="width: 100%; height: 18px;">
                     <table style="margin-left: 10px;">
-                        <tr>
-                            <td>
-                                <img src=@prod.sourceOfImage alt="Supermarket" width="300" height="175">
-                            </td>
-                            <td style="width:850px; color: black;">
-                                @prod.Info
-                            </td>
-                            <td style="width:850px; color: black;">
-                                @prod.Quantity
-                            </td>
-                            <td>
-                                @Html.ActionLink("Αφαίρεση","RemoveCart","Store", prod, new {@class = "minimalButton" })
-                            </td>
-                        </tr>
+                        @if (Model.products.Count > 0)
+                        {
+                            <tr style="color: black">
+                                <td></td>
+                                <td>Product</td>
+                                <td>Quantity</td>
+                                <td>Price</td>
+                            </tr>
+                        }
+                        @foreach (var prod in Model.products)
+                        {
+                            <tr>
+                                <td>
+                                    <img src=@prod.sourceOfImage alt="Supermarket" width="300" height="175" style=" margin-bottom: 10px;">
+                                </td>
+                                <td style="width: 850px; color: black;">
+                                    @prod.Info
+                                </td>
+                                <td style="width: 850px; color: black;">
+                                    @prod.Quantity
+                                </td>
+                                <td style="width: 850px; color: black;">
+                                    @prod.Price €
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Αφαίρεση", "RemoveCart", "Store", prod, new { @class = "minimalButton" })
+                                </td>
+                            </tr>
+                        }
                     </table>
                 </td>
             </tr>
-            }
         </table>
-
-        @Html.ActionLink("Συνέχεια", "Payment", "Store", null, new {@class = "minimalButton"})
-        <br><br><br><br><br>
+        <p style="color: white; margin-top: 35px; background-color: red; width: fit-content; display: block; margin-left: auto; margin-right: auto;">@ViewBag.myString</p>
+        @{
+            if (Model.products.Count >= 1 )
+            {
+                @Html.ActionLink("Συνέχεια", "Payment", "Store", null, new { @class = "minimalButton" })
+            }
+        }
     </div>
 </body>
 </html>

@@ -2,14 +2,6 @@
 
 @{
     ViewBag.Title = "Payment";
-    //if (Session["UserName"] != null)
-    //{
-    //    Layout = "~/Views/Shared/_Layout.cshtml";
-    //}
-    //else
-    //{
-    //    Layout = "~/Views/Shared/_BeforeLoginLayout.cshtml";
-    //}
 }
 
 <!DOCTYPE html>
@@ -71,11 +63,13 @@
             width: 50%;
             border-width: 0px;
             border: none;
+            color: black;
             background-color: #CBF3FF;
             text-align: left;
             font-size: 16px;
             font-weight: bold;
             border-radius: 25px;
+            padding-left: 16px;
         }
         .inputvalidate {
             font-size: 15px;
@@ -83,54 +77,61 @@
         }
     </style>
 </head>
-<body style="background-image: url('/Content/source/payment.jpg')">
-    <div class="mainbody" style="margin: 0;">
-        <br><br><br><br><br><br><br><br>
-        <h2><span style="color:white;">Συμπληρώστε τα απαραίτητα στοιχεία</span></h2>
-        <br><br><br><br>
+<body style="background-image: url('https://bit.ly/3qgwfg5'); background-size: cover;">
+@if (Convert.ToString(Session["UserID"]) == "")
+{
+    //Check if the user entering is logged in else send him to the main page
+    Response.Redirect("~/home/index");
+}
+<div class="mainbody" style="margin: 0;">
+    <br><br><br><br><br><br><br><br>
+    <h2><span style="color: white;">Συμπληρώστε τα απαραίτητα στοιχεία</span></h2>
+    <br><br><br><br>
 
-        <table class="payTable" style="border-collapse: collapse; width: 75%; margin-left: auto; margin-right: auto;" border="1">
-            <tr style="height: 500px">
-                <td style="width: 33%;">
-                    <br>
-                    Στοιχεία Κατοικίας
-                    <br><br>
+    <table class="payTable" style="border-collapse: collapse; width: 75%; margin-left: auto; margin-right: auto;" border="1">
+        <tr style="height: 500px">
+            <td style="width: 33%;">
+                <br>
+                Στοιχεία Κατοικίας
+                <br><br>
 
-                    @Html.TextBoxFor(payment => payment.City, new { @class = "minimalInput", @placeholder = "Πόλη" })
-                    <br>
-                    @Html.ValidationMessageFor(payment => payment.City, "", new { @class = "inputvalidate" })
-                    <br><br>
-                    @Html.TextBoxFor(payment => payment.Address, new { @class = "minimalInput", @placeholder = "Οδός" })
-                    <br>
-                    @Html.ValidationMessageFor(payment => payment.Number, "", new { @class = "inputvalidate" })
-                    <br><br>
-                    @Html.TextBoxFor(payment => payment.Number, new { @class = "minimalInput", @placeholder = "Αριθμός" })
-                    <br>
-                    @Html.ValidationMessageFor(payment => payment.Address, "", new { @class = "inputvalidate" })
-                    <br><br>
-                    @Html.TextBoxFor(cart => cart.ZipCode, new { @class = "minimalInput", @placeholder = "Ταχυδρομικός κώδικας" })
-                    <br>
-                    @Html.ValidationMessageFor(cart => cart.ZipCode, "", new { @class = "inputvalidate" })
-                </td>
-                <td style="width: 33%">
-                    <br>
-                    Τρόπος Πληρωμής
-                    <br><br><br><br>
+                @Html.TextBoxFor(payment => payment.City, new {@class = "minimalInput", @placeholder = "Πόλη"})
+                <br>
+                @Html.ValidationMessageFor(payment => payment.City, "", new {@class = "inputvalidate"})
+                <br><br>
+                @Html.TextBoxFor(payment => payment.Address, new {@class = "minimalInput", @placeholder = "Οδός"})
+                <br>
+                @Html.ValidationMessageFor(payment => payment.Number, "", new {@class = "inputvalidate"})
+                <br><br>
+                @Html.TextBoxFor(payment => payment.Number, new {@class = "minimalInput", @placeholder = "Αριθμός"})
+                <br>
+                @Html.ValidationMessageFor(payment => payment.Address, "", new {@class = "inputvalidate"})
+                <br><br>
+                @Html.TextBoxFor(cart => cart.ZipCode, new {@class = "minimalInput", @placeholder = "Ταχυδρομικός κώδικας"})
+                <br>
+                @Html.ValidationMessageFor(cart => cart.ZipCode, "", new {@class = "inputvalidate"})
+            </td>
+            <td style="width: 33%">
+                <br>
+                Τρόπος Πληρωμής
+                <br><br><br><br>
 
-                    <input type="radio" id="visa" name="payment" value="visa">
-                    <img src="./source/visa.png" width="89" height="57">
-                    &zwnj;
-                    <input type="radio" id="master" name="payment" value="master">
-                    <img src="./source/master.jpg" width="89" height="57">
-                    <br><br>
-                    @Html.TextBoxFor(payment => payment.cartCode, new { @class = "minimalInput", @placeholder = "ΧΧΧΧ-ΧΧΧΧ-ΧΧΧΧ-ΧΧΧΧ" })
-                    <br>
-                    @Html.ValidationMessageFor(payment => payment.cartCode, "", new { @class = "inputvalidate" })
-                    <br><br>
-                    @Html.TextBoxFor(cart => cart.CVV, new { @class = "minimalInput", @placeholder = "CVV" })
-                    <br>
-                    @Html.ValidationMessageFor(cart => cart.CVV, "", new { @class = "inputvalidate" })
-                </td>
+                <input type="radio" id="visa" name="payment" value="visa">
+                <img src="https://bit.ly/2TOLqRy" width="89" height="57">
+                &zwnj;
+                <input type="radio" id="master" name="payment" value="master">
+                <img src="https://bit.ly/35IM31U" width="89" height="57">
+                <br><br>
+                @Html.TextBoxFor(payment => payment.cardCode, new {@class = "minimalInput", @placeholder = "ΧΧΧΧ-ΧΧΧΧ-ΧΧΧΧ-ΧΧΧΧ"})
+                <br>
+                @Html.ValidationMessageFor(payment => payment.cardCode, "", new {@class = "inputvalidate"})
+                <br><br>
+                @Html.TextBoxFor(cart => cart.CVV, new {@class = "minimalInput", @placeholder = "CVV"})
+                <br>
+                @Html.ValidationMessageFor(cart => cart.CVV, "", new {@class = "inputvalidate"})
+            </td>
+            @if ((string) Session["email"] != "")
+            {
                 <td style="width: 33%; text-align: left; background-color: #74BCEC">
                     <div style="margin-left: 20px; margin-right: 20px;">
                         <br>
@@ -151,13 +152,25 @@
                         <br>
                         Συνολικό Ποσό: @Model.TotalPrice€
 
-                        <div>
-</td>
-            </tr>
-        </table>
-        <br><br>
-        @Html.ActionLink("Ολοκλήρωση παραγγελίας", "Payment", "Store", Model, new {@class = "minimalButton" })
-        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    </div>
+                    </div>
+                </td>
+            }
+            else
+            {
+                <div style="margin-left: 20px; margin-right: 20px;">
+                    You are not logged in, please log in first to make a purchase!
+                </div>
+            }
+        </tr>
+    </table>
+    <br><br>
+    @{
+        if(Model.CartPrice >= 1)
+        {
+            @Html.ActionLink("Ολοκλήρωση παραγγελίας", "PaymentComplete", "Store", new {@class = "minimalButton"})
+        }
+    }
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</div>
 </body>
 </html>

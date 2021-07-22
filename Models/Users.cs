@@ -30,7 +30,7 @@ namespace emarket.Models
         //Validation for Email
         [Required(ErrorMessage = "Please Enter Email Address")]
         [Display(Name = "Email")]
-        //[RegularExpression(".+@.+\\..+", ErrorMessage = "Please enter a valid email address")]
+        [RegularExpression(".+@.+\\..+", ErrorMessage = "Please enter a valid email address")]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Please enter your password")]

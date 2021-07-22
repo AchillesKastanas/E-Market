@@ -26,7 +26,6 @@
             text-align: center;
             height: 100%;
             width: 100%;
-            background-image: url('/Content/source/shoping.jpg');
         }
 
         td.button:active {
@@ -122,26 +121,27 @@
     </style>
 </head>
 
-<body>
+<body style="background-image: url('https://bit.ly/3iUfKEW'); background-size: cover;">
     <div class="mainbody" style="margin: 0;">
-
-        <br><br><br>
-
-        @using (Html.BeginForm("Index", "Store", FormMethod.Post))
-        {
-            <button class="minimalButton" type="button" name="stores">Επιστροφή στα καταστήματα</button>
-        }
-        <h2 style="margin-top: 8%;"><span style="color:white;">Καλοσωρίσατε στο Σουπερμάρκετ "Φρεσκάδα"</span></h2><br><br>
+        <h2 style="margin:5%;"><span style="color:white;">Καλοσωρίσατε στο Σουπερμάρκετ "Φρεσκάδα"</span></h2>
         @if (Session["UserName"] == null)
         {
             <p>You are currently not logged in, <br> please log in or register first to be able to add items to your cart</p>
         }
         <p>@ViewBag.AddedString</p>
         <center>
-            <table border="0">
+            <table border="0" style="margin:10%;">
                 <tr>
                     <td></td>
                     <td style="vertical-align:bottom;" id="CategoryStyle">@ViewBag.Category</td>
+                    <p style="color: white; 
+                              margin-top: 35px; 
+                              background-color: red;
+                              width: fit-content;
+                              display: block;
+                              margin-left: auto;
+                              margin-right: auto;">@ViewBag.MyString</p>
+
 
                 </tr>
                 <tr>
@@ -159,11 +159,12 @@
                                 <button class="katigories" disabled>Κατηγορίες</button>
                                 @using (Html.BeginForm("ShopDashBoard", "Store", FormMethod.Post))
                                 {
-                                    <button class="button" name="submitButton" value="Diary" type="submit">Γαλακτοκομικά</button>
-                                    <button class="button" name="submitButton" value="Lunch meat" type="submit">Αλαντικά</button>
-                                    <button class="button" name="submitButton" value="Snacks" type="submit">Ζυμαρικά</button>
-                                    <button class="button" name="submitButton" value="Vegetables" type="submit">Λαχανικά</button>
-                                    <button class="button" name="submitButton" value="Fruit" type="submit">Φρούτα</button>
+                                    <button class="button" name="submitButton" value="Dairies" type="submit">Dairies</button>
+                                    <button class="button" name="submitButton" value="Pasta" type="submit">Pasta</button>
+                                    <button class="button" name="submitButton" value="Veggies" type="submit">Veggies</button>
+                                    <button class="button" name="submitButton" value="Fruits" type="submit">Fruits</button>
+                                    <button class="button" name="submitButton" value="Alcohol Drinks" type="submit">Alcohol Drinks</button>
+                                    <button class="button" name="submitButton" value="Snacks" type="submit">Snacks</button>
                                 }
                             </div>
                         </center>
@@ -178,29 +179,30 @@
                                     {
                                         using (Html.BeginForm("Shopping", "Store", FormMethod.Post))
                                         {
-                                    <td style="width: 33%;">
-                                        @{ changeRow += 1; }
+                                            <td style="width: 33%;">
+                                                @{ changeRow += 1; }
 
-                                            <input type="hidden" id="productID" name="productID" value="@prod.productID" />
+                                                <input type="hidden" id="productID" name="productID" value="@prod.productID" />
 
-                                            <img src="@prod.sourceOfImage" width="300" height="175" />
-                                            <input type="hidden" id="sourceOfImage" name="sourceOfImage" value="@prod.sourceOfImage" />
+                                                <img src="@prod.sourceOfImage" width="300" height="175" />
+                                                <input type="hidden" id="sourceOfImage" name="sourceOfImage" value="@prod.sourceOfImage" />
 
-                                            @prod.Info
-                                            <input type="hidden" id="info" name="info" value="@prod.Info" />
-                                            <br>
+                                                @prod.Info
+                                                <input type="hidden" id="info" name="info" value="@prod.Info" />
+                                                <br>
 
-                                            @prod.Price
-                                            <input type="hidden" id="price" name="price" value="@prod.Price" />
-                                            <br>
+                                                @prod.Price
+                                                <input type="hidden" id="price" name="price" value="@prod.Price" />
+                                                <input type="hidden" id="AvailableQuantity" name="AvailableQuantity" value="@prod.AvailableQuantity" />
+                                                <br>
 
-                                            <input class="quantity" id="quantity" name="quantity" min="0" max="@prod.AvailableQuantity" /><br />
+                                                <input type="number" onkeydown="return false" class="quantity" id="quantity" name="quantity" min="1" value="1" max="@prod.AvailableQuantity" /><br />
 
-                                            @if (Session["UserID"] != null)
-                                            {
-                                                <input type="submit" value="Προσθήκη στο καλάθι" class="minimalButton" />
-                                            }
-                                        </td>
+                                                @if (Session["UserID"] != null)
+                                                {
+                                                    <input type="submit" value="Προσθήκη στο καλάθι" class="minimalButton" />
+                                                }
+                                            </td>
                                             if (changeRow == 3)
                                             {
                                                 changeRow = 0;
@@ -213,14 +215,12 @@
                         }
                     </td>
                 </tr>
+
             </table>
-        </center>
-        <br><br>
-        Η Τοποθεσία Μας
-        <br><br>
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5282.642111595224!2d23.715355374404904!3d38.06856938476487!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14a1a232d3bfb505%3A0x178dfa85d7f098fd!2sRiga%20Fereou%207%2C%20Zefiri%20134%2051!5e0!3m2!1sen!2sgr!4v1622824310085!5m2!1sen!2sgr" width="1335" height="250" style="border:0;" allowfullscreen="" loading="lazy">
+        </center> 
+        Η Τοποθεσία Μας<br>
+        <iframe style="margin:2%;" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5282.642111595224!2d23.715355374404904!3d38.06856938476487!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14a1a232d3bfb505%3A0x178dfa85d7f098fd!2sRiga%20Fereou%207%2C%20Zefiri%20134%2051!5e0!3m2!1sen!2sgr!4v1622824310085!5m2!1sen!2sgr" width="1335" height="250" allowfullscreen="" loading="lazy">
         </iframe>
-        <br><br>
     </div>
 
 </body>

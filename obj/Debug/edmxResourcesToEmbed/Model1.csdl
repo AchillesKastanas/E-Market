@@ -1,0 +1,181 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="emarketModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="cart">
+    <Key>
+      <PropertyRef Name="cartID" />
+    </Key>
+    <Property Name="cartID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="userID" Type="Int64" Nullable="false" />
+    <Property Name="sessionID" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="user" Relationship="Self.cart_fk0" FromRole="cart" ToRole="users" />
+  </EntityType>
+  <EntityType Name="order">
+    <Key>
+      <PropertyRef Name="orderID" />
+    </Key>
+    <Property Name="orderID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="userID" Type="Int64" Nullable="false" />
+    <Property Name="sessionID" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+    <Property Name="orderStatus" Type="Int32" />
+    <Property Name="subtotal" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="tax" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="shipping" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="total" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="fName" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+    <Property Name="lName" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+    <Property Name="mobile" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+    <Property Name="address" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+    <Property Name="city" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+    <Property Name="zipCode" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="user" Relationship="Self.orders_fk0" FromRole="orders" ToRole="users" />
+  </EntityType>
+  <EntityType Name="product">
+    <Key>
+      <PropertyRef Name="productID" />
+    </Key>
+    <Property Name="productID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="vendorID" Type="Int64" Nullable="false" />
+    <Property Name="categoryID" Type="Int64" Nullable="false" />
+    <Property Name="price" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="availableQTY" Type="Int16" />
+    <Property Name="CanBeBought" Type="Int16" />
+    <Property Name="productInfo" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+    <Property Name="sourceOfImage" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="vendor" Relationship="Self.product_fk0" FromRole="product" ToRole="vendors" />
+    <NavigationProperty Name="product_category" Relationship="Self.product_fk1" FromRole="product" ToRole="product_category" />
+  </EntityType>
+  <EntityType Name="product_category">
+    <Key>
+      <PropertyRef Name="categoryID" />
+    </Key>
+    <Property Name="categoryID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="categoryName" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="products" Relationship="Self.product_fk1" FromRole="product_category" ToRole="product" />
+  </EntityType>
+  <EntityType Name="user">
+    <Key>
+      <PropertyRef Name="userID" />
+    </Key>
+    <Property Name="userID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="fName" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
+    <Property Name="lName" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
+    <Property Name="mobile" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="passwordHash" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="isAdmin" Type="Byte" />
+    <Property Name="isVendor" Type="Byte" />
+    <NavigationProperty Name="carts" Relationship="Self.cart_fk0" FromRole="users" ToRole="cart" />
+    <NavigationProperty Name="orders" Relationship="Self.orders_fk0" FromRole="users" ToRole="orders" />
+    <NavigationProperty Name="vendors" Relationship="Self.vendors_fk0" FromRole="users" ToRole="vendors" />
+  </EntityType>
+  <EntityType Name="vendor">
+    <Key>
+      <PropertyRef Name="vendorID" />
+    </Key>
+    <Property Name="vendorID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="userID" Type="Int64" Nullable="false" />
+    <Property Name="locationOfStore" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+    <Property Name="info" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="products" Relationship="Self.product_fk0" FromRole="vendors" ToRole="product" />
+    <NavigationProperty Name="user" Relationship="Self.vendors_fk0" FromRole="vendors" ToRole="users" />
+  </EntityType>
+  <Association Name="cart_fk0">
+    <End Role="users" Type="Self.user" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="cart" Type="Self.cart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="userID" />
+      </Principal>
+      <Dependent Role="cart">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="orders_fk0">
+    <End Role="users" Type="Self.user" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="orders" Type="Self.order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="userID" />
+      </Principal>
+      <Dependent Role="orders">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="product_fk0">
+    <End Role="vendors" Type="Self.vendor" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="product" Type="Self.product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="vendors">
+        <PropertyRef Name="vendorID" />
+      </Principal>
+      <Dependent Role="product">
+        <PropertyRef Name="vendorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="product_fk1">
+    <End Role="product_category" Type="Self.product_category" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="product" Type="Self.product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="product_category">
+        <PropertyRef Name="categoryID" />
+      </Principal>
+      <Dependent Role="product">
+        <PropertyRef Name="categoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="vendors_fk0">
+    <End Role="users" Type="Self.user" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="vendors" Type="Self.vendor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="userID" />
+      </Principal>
+      <Dependent Role="vendors">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="emarketEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="carts" EntityType="Self.cart" />
+    <EntitySet Name="orders" EntityType="Self.order" />
+    <EntitySet Name="products" EntityType="Self.product" />
+    <EntitySet Name="product_category" EntityType="Self.product_category" />
+    <EntitySet Name="users" EntityType="Self.user" />
+    <EntitySet Name="vendors" EntityType="Self.vendor" />
+    <AssociationSet Name="cart_fk0" Association="Self.cart_fk0">
+      <End Role="users" EntitySet="users" />
+      <End Role="cart" EntitySet="carts" />
+    </AssociationSet>
+    <AssociationSet Name="orders_fk0" Association="Self.orders_fk0">
+      <End Role="users" EntitySet="users" />
+      <End Role="orders" EntitySet="orders" />
+    </AssociationSet>
+    <AssociationSet Name="product_fk0" Association="Self.product_fk0">
+      <End Role="vendors" EntitySet="vendors" />
+      <End Role="product" EntitySet="products" />
+    </AssociationSet>
+    <AssociationSet Name="product_fk1" Association="Self.product_fk1">
+      <End Role="product_category" EntitySet="product_category" />
+      <End Role="product" EntitySet="products" />
+    </AssociationSet>
+    <AssociationSet Name="vendors_fk0" Association="Self.vendors_fk0">
+      <End Role="users" EntitySet="users" />
+      <End Role="vendors" EntitySet="vendors" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

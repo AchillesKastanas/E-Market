@@ -85,12 +85,6 @@ namespace emarket.Controllers
             }
         }
 
-        public ActionResult ResetPass()
-        {
-            //Update Password
-            return View("ResetPassword");
-        }
-
         public ActionResult Register()
         {
             return View();
@@ -123,7 +117,7 @@ namespace emarket.Controllers
                             fName = Reguser.FirstName,
                             lName = Reguser.LastName,
                             passwordHash = Reguser.Password,
-                            mobile = Reguser.Phone,
+                            mobile = Reguser.Phone.ToString(),
                             email = Reguser.Email,
                             isAdmin = Convert.ToByte(0),
                             isVendor = Convert.ToByte(0)

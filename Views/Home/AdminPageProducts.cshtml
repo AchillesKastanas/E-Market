@@ -26,7 +26,6 @@
             text-align: center;
             height: 100%;
             width: 100%;
-            background-image: url(https://bit.ly/3csuEyg);
             background-position: center;
             background-repeat: no-repeat;
             background-size: cover;
@@ -77,67 +76,65 @@
         }
     </style>
 </head>
-<body>
+<body style="background-image: url(https://bit.ly/3csuEyg);">
+    @if (Convert.ToInt32(Session["IsAdmin"]) != 1)
+    {
+        //Check if the user entering is an admin else send him to the main page
+        Response.Redirect("/home/index");
+    }
     <div class="mainbody" style="margin: 0;">
-        <br><br><br><br><br><br>
-        <h2><span style="color:white;">Admin Page: Τροποποίηση Βάσης Δεδομένων</span></h2>
-        <br><br><br><br>
+        <h2 style="margin: 10%"><span style="color: white;">Admin Page: Τροποποίηση Βάσης Δεδομένων</span></h2>
         @Html.ActionLink("Εμφάνιση χρηστών", "AdminPageUsers", "Home", null, new { @class = "minimalButton" }) @Html.ActionLink("Εμφάνιση προϊόντων", "AdminPageProducts", "Home", null, new { @class = "minimalButton" })
-        <br><br>
-            <table class="payTable" style="border-collapse: collapse; width: 75%; margin-left: auto; margin-right: auto;" border="1">
-                <tr style="height: 60px; background-color: #74BCEC">
+        <table class="payTable" style="margin-top: 5%; border-collapse: collapse; width: 75%; margin-left: auto; margin-right: auto;" border="1">
+            <tr style="height: 60px; background-color: #74BCEC">
+                <td>
+                    Product ID
+                </td>
+                <td>
+                    Category ID
+                </td>
+                <td>
+                    Price
+                </td>
+                <td>
+                    Available Quantity
+                </td>
+                <td>
+                    Product Info
+                </td>
+                <td>
+                    Image Source
+                </td>
+                <td>
+                </td>
+            </tr>
+            @foreach (var product in Model)
+            {
+                <tr style="height: 45px">
                     <td>
-                        Product ID
+                        @product.productID
                     </td>
                     <td>
-                        Category ID
+                        @product.categoryName
                     </td>
                     <td>
-                        Price
+                        @product.Price
                     </td>
                     <td>
-                        Available Quantity
+                        @product.AvailableQuantity
                     </td>
                     <td>
-                        Product Info
+                        @product.Info
                     </td>
                     <td>
-                        Image Source
+                        @product.sourceOfImage
                     </td>
                     <td>
+                        @Html.ActionLink("Διαγραφή", "DeleteProduct", "Home", product, new { @class = "minimalButton" })
                     </td>
                 </tr>
-                @foreach(var product in Model)
-                {
-                    <tr style="height: 45px">
-                            <td>
-                                @product.productID
-                            </td>
-                            <td>
-                                @product.categoryName
-                            </td>
-                            <td>
-                                @product.Price
-                            </td>
-                            <td>
-                                @product.AvailableQuantity
-                            </td>
-                            <td>
-                                @product.Info
-                            </td>
-                            <td>
-                                @product.sourceOfImage
-                            </td>
-                            <td>
-                                @Html.ActionLink("Διαγραφή", "DeleteProduct", "Home", product, new { @class = "minimalButton" })
-                            </td>
-                    </tr>
-
-                }
-            </table>
-        <br><br>
-        <button class="minimalButton" type="button">Ενημέρωση Βάσης</button>
-        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+            }
+        </table>
     </div>
 </body>
 </html>

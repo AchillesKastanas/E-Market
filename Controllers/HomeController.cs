@@ -23,6 +23,7 @@ namespace emarket.Controllers
                     UserId = Convert.ToInt32(x.userID),
                     FirstName = x.fName,
                     LastName = x.lName,
+                    Phone = x.mobile,
                     Email = x.email,
                     Password = x.passwordHash,
                 }).ToList();
@@ -93,7 +94,6 @@ namespace emarket.Controllers
                     database.products.Remove(currentLine);
                     database.SaveChanges();
                     AdminPageProducts();
-
                     return View("AdminPageProducts");
                 }
             }

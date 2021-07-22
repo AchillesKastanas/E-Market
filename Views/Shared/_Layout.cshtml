@@ -18,7 +18,7 @@
 
         .d {
             float: none;
-            color: red;
+            color: black;
             text-decoration: none;
             display: block;
             text-align: left;
@@ -50,6 +50,20 @@
                         <li>@Html.ActionLink("Admin Page", "AdminPageUsers", "Home")</li>
                         <li>
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                Our Stores
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li class="d">@Html.ActionLink("Φρεσκάδα", "Shop1", "Store")</li>
+                                <li class="d">@Html.ActionLink("Super Offer", "Shop2", "Store")</li>
+                                <li class="d">@Html.ActionLink("Food Town", "Shop3", "Store")</li>
+                                <li class="d">@Html.ActionLink("Carts", "Shop4", "Store")</li>
+                                <li class="d">@Html.ActionLink("SP Market", "Shop5", "Store")</li>
+                            </ul>
+                        </li>
+                        <li>@Html.ActionLink("Cart", "Cart", "Store")</li>
+                        <li>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                                 <img src="/Content/source/account.jpg" style="width: 22px; height: 22px"> Your account
 
                                 <span class="caret"></span>
@@ -58,7 +72,6 @@
                                 <li class="d">Welcome, Admin!</li>
                                 <li class="d">@Session["UserName"]</li>
                                 <li class="d">@Html.ActionLink("Logout", "Logout", "Login")</li>
-                                <li class="d">@Html.ActionLink("Reset Password", "Index", "Login")</li>
                             </ul>
                         </li>
                     }
@@ -71,11 +84,11 @@
                                 <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu" role="menu">
-                                <li class="d">@Html.ActionLink("Καματερό", "Shop1", "Store")</li>
-                                <li class="d">@Html.ActionLink("Αγία Μαρίνα", "Shop2", "Store")</li>
-                                <li class="d">@Html.ActionLink("Πειραιάς", "Shop3", "Store")</li>
-                                <li class="d">@Html.ActionLink("Γκύζη", "Shop4", "Store")</li>
-                                <li class="d">@Html.ActionLink("Άλιμος", "Shop5", "Store")</li>
+                                <li class="d">@Html.ActionLink("Φρεσκάδα", "Shop1", "Store")</li>
+                                <li class="d">@Html.ActionLink("Super Offer", "Shop2", "Store")</li>
+                                <li class="d">@Html.ActionLink("Food Town", "Shop3", "Store")</li>
+                                <li class="d">@Html.ActionLink("Carts", "Shop4", "Store")</li>
+                                <li class="d">@Html.ActionLink("SP Market", "Shop5", "Store")</li>
                             </ul>
                         </li>
                         <li>@Html.ActionLink("Cart", "Cart", "Store")</li>
@@ -85,10 +98,9 @@
 
                                 <span class="caret"></span>
                             </a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li class="d">@Session["UserName"]</li>
+                            <ul class="dropdown-menu" role="menu" style="padding-right: 43px;">
+                                <li class="d" style="font-family: -webkit-pictograph; padding-left: 56px;">@Session["UserName"]</li>
                                 <li class="d">@Html.ActionLink("Logout", "Logout", "Login")</li>
-                                <li class="d">@Html.ActionLink("Reset Password", "Index", "Login")</li>
                             </ul>
                         </li>
                     }
