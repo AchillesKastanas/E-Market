@@ -16,8 +16,7 @@ namespace emarket
             routes.MapRoute(
                 name: "Store",
                 url: "Store/{action}",
-                defaults: new { controller = "Store", action = "Index" }
-
+                defaults: new { controller = "Store", action = "cart"}
             );
 
             routes.MapRoute(

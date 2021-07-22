@@ -13,5 +13,7 @@ namespace emarket.Models
         public string AvailableQuantity { get; set; }
         public string sourceOfImage { get; set; }
         public string categoryName { get; set; }
+        public string categoryID { get; set; }
+        public string Quantity { get; set; }
     }
 }

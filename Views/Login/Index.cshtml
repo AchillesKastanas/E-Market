@@ -24,7 +24,8 @@
         html, body {
             margin: 0;
             height: 100%;
-            overflow: hidden
+            overflow: hidden;
+            background-size: cover;
         }
 
         .container {
@@ -38,7 +39,6 @@
             text-align: center;
             height: 100%;
             width: 100%;
-            /*background-image: url('/Content/source/login.jpg');*/
         }
 
         td.button:active {
@@ -57,11 +57,11 @@
             font-weight: bold;
         }
 
-        table.LoginTable {
-            background-color: transparent;
-            border-width: 0px;
-            border: none;
-        }
+            table.LoginTable {
+                background-color: transparent;
+                border-width: 0px;
+                border: none;
+            }
 
         .button {
             border-radius: 5px;
@@ -99,12 +99,9 @@
             border-radius: 25px;
         }
     </style>
-    <body style="background-image: url('/Content/source/login.jpg')">
+    <body style="background-image: url('https://bit.ly/3cYoI0b') ">
         <div class="mainbody" style="margin: 0;">
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-            @*<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>*@
-
 
             <h2 style="margin-top: 12%;"><span style="color:white;">Συνδεθείτε στον Λογαριασμό σας</span></h2>
             <br><br>
@@ -130,10 +127,10 @@
                       display: block;
                       margin-left: auto;
                       margin-right: auto;">@ViewBag.myString</p>
-            @*<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>*@
-        </div>
-    </body>
-}
+                    @*<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>*@
+                </div>
+            </body>
+        }
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

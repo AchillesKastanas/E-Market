@@ -1,0 +1,176 @@
+﻿@model emarket.Models.Payment
+
+@{
+    ViewBag.Title = "Payment";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 100%;
+            height: 100%;
+            padding: 0px;
+            margin: 0px;
+        }
+        .mainbody {
+            text-align: center;
+            height: 100%;
+            width: 100%;
+            background-image: url(./source/payment.jpg);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        table, body {
+            font-family: 'Monaco', monospace;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .minimalButton {
+            background-color: white;
+            border: none;
+            color: black;
+            padding: 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        table.payTable {
+            background-color: #74D3EC;
+            border: 5px white;
+        }
+
+        .minimalInput {
+            height: 43px;
+            width: 50%;
+            border-width: 0px;
+            border: none;
+            color: black;
+            background-color: #CBF3FF;
+            text-align: left;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 25px;
+            padding-left: 16px;
+        }
+        .inputvalidate {
+            font-size: 15px;
+            color: crimson;
+        }
+    </style>
+</head>
+<body style="background-image: url('https://bit.ly/3qgwfg5'); background-size: cover;">
+@if (Convert.ToString(Session["UserID"]) == "")
+{
+    //Check if the user entering is logged in else send him to the main page
+    Response.Redirect("~/home/index");
+}
+<div class="mainbody" style="margin: 0;">
+    <br><br><br><br><br><br><br><br>
+    <h2><span style="color: white;">Συμπληρώστε τα απαραίτητα στοιχεία</span></h2>
+    <br><br><br><br>
+
+    <table class="payTable" style="border-collapse: collapse; width: 75%; margin-left: auto; margin-right: auto;" border="1">
+        <tr style="height: 500px">
+            <td style="width: 33%;">
+                <br>
+                Στοιχεία Κατοικίας
+                <br><br>
+
+                @Html.TextBoxFor(payment => payment.City, new {@class = "minimalInput", @placeholder = "Πόλη"})
+                <br>
+                @Html.ValidationMessageFor(payment => payment.City, "", new {@class = "inputvalidate"})
+                <br><br>
+                @Html.TextBoxFor(payment => payment.Address, new {@class = "minimalInput", @placeholder = "Οδός"})
+                <br>
+                @Html.ValidationMessageFor(payment => payment.Number, "", new {@class = "inputvalidate"})
+                <br><br>
+                @Html.TextBoxFor(payment => payment.Number, new {@class = "minimalInput", @placeholder = "Αριθμός"})
+                <br>
+                @Html.ValidationMessageFor(payment => payment.Address, "", new {@class = "inputvalidate"})
+                <br><br>
+                @Html.TextBoxFor(cart => cart.ZipCode, new {@class = "minimalInput", @placeholder = "Ταχυδρομικός κώδικας"})
+                <br>
+                @Html.ValidationMessageFor(cart => cart.ZipCode, "", new {@class = "inputvalidate"})
+            </td>
+            <td style="width: 33%">
+                <br>
+                Τρόπος Πληρωμής
+                <br><br><br><br>
+
+                <input type="radio" id="visa" name="payment" value="visa">
+                <img src="https://bit.ly/2TOLqRy" width="89" height="57">
+                &zwnj;
+                <input type="radio" id="master" name="payment" value="master">
+                <img src="https://bit.ly/35IM31U" width="89" height="57">
+                <br><br>
+                @Html.TextBoxFor(payment => payment.cardCode, new {@class = "minimalInput", @placeholder = "ΧΧΧΧ-ΧΧΧΧ-ΧΧΧΧ-ΧΧΧΧ"})
+                <br>
+                @Html.ValidationMessageFor(payment => payment.cardCode, "", new {@class = "inputvalidate"})
+                <br><br>
+                @Html.TextBoxFor(cart => cart.CVV, new {@class = "minimalInput", @placeholder = "CVV"})
+                <br>
+                @Html.ValidationMessageFor(cart => cart.CVV, "", new {@class = "inputvalidate"})
+            </td>
+            @if ((string) Session["email"] != "")
+            {
+                <td style="width: 33%; text-align: left; background-color: #74BCEC">
+                    <div style="margin-left: 20px; margin-right: 20px;">
+                        <br>
+                        Συνοψη Παραγγελίας:
+                        <br><br><br><br>
+
+                        Όνομα Χρήστη: @Session["Username"]
+                        <br><br>
+                        Αποστολή εντός: 24 ωρών
+                        <br><br>
+                        Ποσό Παραγγελίας: @Model.CartPrice€ (ΦΠΑ : 24%)
+                        <br>
+                        +
+                        <br>
+                        Μεταφορικά: @Model.Shipping
+                        <br><br>
+                        <hr>
+                        <br>
+                        Συνολικό Ποσό: @Model.TotalPrice€
+
+                    </div>
+                </td>
+            }
+            else
+            {
+                <div style="margin-left: 20px; margin-right: 20px;">
+                    You are not logged in, please log in first to make a purchase!
+                </div>
+            }
+        </tr>
+    </table>
+    <br><br>
+    @{
+        if(Model.CartPrice >= 1)
+        {
+            @Html.ActionLink("Ολοκλήρωση παραγγελίας", "PaymentComplete", "Store", new {@class = "minimalButton"})
+        }
+    }
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</div>
+</body>
+</html>

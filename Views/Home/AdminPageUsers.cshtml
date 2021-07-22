@@ -1,0 +1,137 @@
+﻿@model List<emarket.Models.Users>
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 100%;
+            height: 100%;
+            padding: 0px;
+            margin: 0px;
+        }
+
+        .mainbody {
+            text-align: center;
+            height: 100%;
+            width: 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        table, body {
+            font-family: 'Monaco', monospace;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        td {
+            width: 11%;
+        }
+
+        .minimalButton {
+            background-color: white;
+            border: none;
+            color: black;
+            padding: 12px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        table.payTable {
+            background-color: #74D3EC;
+            border: 5px white;
+        }
+
+        .minimalInput {
+            height: 43px;
+            width: 50%;
+            border-width: 0px;
+            border: none;
+            background-color: #CBF3FF;
+            text-align: left;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 25px;
+        }
+    </style>
+</head>
+<body style="background-image: url(https://bit.ly/3csuEyg);">
+    @if (Convert.ToInt32(Session["IsAdmin"]) != 1)
+    {
+        //Check if the user entering is an admin else send him to the main page
+        Response.Redirect("/home/index");
+    }
+    <div class="mainbody" style="margin: 0;">
+    <h2 style="margin: 10%;"><span style="color: white;">Admin Page: Τροποποίηση Βάσης Δεδομένων</span></h2>
+    @Html.ActionLink("Εμφάνιση χρηστών", "AdminPageUsers", "Home", null, new {@class = "minimalButton"}) @Html.ActionLink("Εμφάνιση προϊόντων", "AdminPageProducts", "Home", null, new {@class = "minimalButton"})
+
+    <table class="payTable" style="border-collapse: collapse; margin-top: 5%; width: 75%; margin-left: auto; margin-right: auto;" border="1">
+        <tr style="height: 70px; background-color: #74BCEC">
+            <td>
+                User ID
+            </td>
+            <td>
+                First Name
+            </td>
+            <td>
+                Last Name
+            </td>
+            <td>
+                Mobile
+            </td>
+            <td>
+                E-Mail
+            </td>
+            <td>
+                Password Hash
+            </td>
+            <td>
+            </td>
+        </tr>
+        @foreach (var user in Model)
+        {
+            <tr style="height: 45px">
+                <td>
+                    @user.UserId
+                </td>
+                <td>
+                    @user.FirstName
+                </td>
+                <td>
+                    @user.LastName
+                </td>
+                <td>
+                    @user.Phone
+                </td>
+                <td>
+                    @user.Email
+                </td>
+                <td>
+                    @user.Password
+                </td>
+                <td>
+                    @Html.ActionLink("Διαγραφή", "DeleteUser", "Home", user, new {@class = "minimalButton"})
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+</body>
+</html>

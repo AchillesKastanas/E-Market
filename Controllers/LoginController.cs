@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity.Core.Metadata.Edm;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
+using emarket.Helpers;
 using emarket.Models;
 
 namespace emarket.Controllers
@@ -30,10 +28,28 @@ namespace emarket.Controllers
                 );
                     if (query != null)
                     {
+                        Session["IsAdmin"] = Convert.ToInt32(query.isAdmin);
                         Session["UserID"] = query.userID.ToString();
                         Session["email"] = query.email;
                         Session["UserName"] = query.fName + " " + query.lName;
-                        if (Session["UserID"] != null)
+
+                        var query1 = db.carts.FirstOrDefault(usr => usr.userID.Equals(query.userID));
+                        if (query1 != null)
+                        {
+                            Session["CartID"] = query1.cartID;
+                        }
+                        else
+                        {
+                            cart cart = new cart
+                            {
+                                userID = Convert.ToInt64(Session["UserID"])
+                            };
+                            db.carts.Add(cart);
+                            db.SaveChanges();
+                            Session["CartID"] = cart.cartID;
+                        }
+
+                        if (Session["UserID"] != null && Session["CartID"] != null)
                         {
                             return RedirectToAction("Index", "Home");
                         }
@@ -47,10 +63,26 @@ namespace emarket.Controllers
             catch (Exception e)
             {
                 ViewBag.MyString = "Something went wrong!\nPlease try again..";
-                Console.WriteLine(e);
+                ErrorCatcher.ErrorCatch(e);
                 return View("Index");
             }
             return View("Index");
+        }
+
+        public ActionResult Logout()
+        {
+            try
+            {
+                Session.Clear();
+                Session.Abandon();
+                return View("Index");
+            }
+            catch (Exception e)
+            {
+                ViewBag.MyString = "Something went wrong!\nPlease try again..";
+                ErrorCatcher.ErrorCatch(e);
+                return View("Index");
+            }
         }
 
         public ActionResult Register()
@@ -82,31 +114,41 @@ namespace emarket.Controllers
                         // and add it to the database
                         var newUser = new user
                         {
-                            userID = Reguser.UserId,
                             fName = Reguser.FirstName,
                             lName = Reguser.LastName,
                             passwordHash = Reguser.Password,
-                            mobile = Reguser.Phone,
+                            mobile = Reguser.Phone.ToString(),
                             email = Reguser.Email,
-                            isAdmin = Convert.ToByte(Reguser.IsAdmin),
-                            isVendor = Convert.ToByte(Reguser.IsVendor)
+                            isAdmin = Convert.ToByte(0),
+                            isVendor = Convert.ToByte(0)
                         };
 
-                        db.Configuration.ValidateOnSaveEnabled = false;
+                        cart cart = new cart
+                        {
+                            userID = Convert.ToInt64(Reguser.UserId)
+                        };
+
                         db.users.Add(newUser);
+                        db.carts.Add(cart);
                         db.SaveChanges();
                         Login(Reguser); //since the user registered log him in
-                        //return RedirectToAction("UserDashBoard");
+                        if (Session["UserID"] != null)
+                        {
+                            return RedirectToAction("Index", "Home");
+                        }
+                        else
+                        {
+                            return View("Index");
+                        }
                     }
                 }
             }
             catch (Exception e)
             {
                 ViewBag.MyString = "Something went wrong!\nPlease try again..";
-                Console.WriteLine(e);
+                ErrorCatcher.ErrorCatch(e);
                 return View("Register");
             }
-            return View("Register");
         }
     }
 }

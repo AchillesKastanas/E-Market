@@ -7,8 +7,11 @@ namespace emarket.Models
 {
     public class Cart
     {
+        public void AddToCart(Product product)
+        {
+            products.Add(product);
+        }
         public string CartID { get; set; }
-        public string UserID { get; set; }
-        public List<Product> ProductsList { get; set; } // contains all the users products ?
+        public List<Product> products = new List<Product>();
     }
 }

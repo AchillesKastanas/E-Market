@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ac08dbf877374818bcd3e0e987d2b2e3" Name="Diagram1">
+        <EntityTypeShape EntityType="emarketModel.cart" Width="1.5" PointX="4.125" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="emarketModel.order" Width="1.5" PointX="3" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="emarketModel.product" Width="1.5" PointX="12" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="emarketModel.product_category" Width="1.5" PointX="6" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="emarketModel.user" Width="1.5" PointX="0.75" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="emarketModel.vendor" Width="1.5" PointX="7.125" PointY="6.625" IsExpanded="true" />
+        <AssociationConnector Association="emarketModel.cart_fk0" ManuallyRouted="false" />
+        <AssociationConnector Association="emarketModel.orders_fk0" ManuallyRouted="false" />
+        <AssociationConnector Association="emarketModel.product_fk0" ManuallyRouted="false" />
+        <AssociationConnector Association="emarketModel.product_fk1" ManuallyRouted="false" />
+        <AssociationConnector Association="emarketModel.vendors_fk0" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
