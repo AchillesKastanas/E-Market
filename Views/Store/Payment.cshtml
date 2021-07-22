@@ -85,35 +85,35 @@
 }
 <div class="mainbody" style="margin: 0;">
     <br><br><br><br><br><br><br><br>
-    <h2><span style="color: white;">Συμπληρώστε τα απαραίτητα στοιχεία</span></h2>
+    <h2><span style="color: white;">Billing Info</span></h2>
     <br><br><br><br>
 
     <table class="payTable" style="border-collapse: collapse; width: 75%; margin-left: auto; margin-right: auto;" border="1">
         <tr style="height: 500px">
             <td style="width: 33%;">
                 <br>
-                Στοιχεία Κατοικίας
+                Housing Details
                 <br><br>
 
-                @Html.TextBoxFor(payment => payment.City, new {@class = "minimalInput", @placeholder = "Πόλη"})
+                @Html.TextBoxFor(payment => payment.City, new { @class = "minimalInput", @placeholder = "Town" })
                 <br>
-                @Html.ValidationMessageFor(payment => payment.City, "", new {@class = "inputvalidate"})
+                @Html.ValidationMessageFor(payment => payment.City, "", new { @class = "inputvalidate" })
                 <br><br>
-                @Html.TextBoxFor(payment => payment.Address, new {@class = "minimalInput", @placeholder = "Οδός"})
+                @Html.TextBoxFor(payment => payment.Address, new { @class = "minimalInput", @placeholder = "Address" })
                 <br>
-                @Html.ValidationMessageFor(payment => payment.Number, "", new {@class = "inputvalidate"})
+                @Html.ValidationMessageFor(payment => payment.Number, "", new { @class = "inputvalidate" })
                 <br><br>
-                @Html.TextBoxFor(payment => payment.Number, new {@class = "minimalInput", @placeholder = "Αριθμός"})
+                @Html.TextBoxFor(payment => payment.Number, new { @class = "minimalInput", @placeholder = "Address Number" })
                 <br>
-                @Html.ValidationMessageFor(payment => payment.Address, "", new {@class = "inputvalidate"})
+                @Html.ValidationMessageFor(payment => payment.Address, "", new { @class = "inputvalidate" })
                 <br><br>
-                @Html.TextBoxFor(cart => cart.ZipCode, new {@class = "minimalInput", @placeholder = "Ταχυδρομικός κώδικας"})
+                @Html.TextBoxFor(cart => cart.ZipCode, new { @class = "minimalInput", @placeholder = "Post Code" })
                 <br>
-                @Html.ValidationMessageFor(cart => cart.ZipCode, "", new {@class = "inputvalidate"})
+                @Html.ValidationMessageFor(cart => cart.ZipCode, "", new { @class = "inputvalidate" })
             </td>
             <td style="width: 33%">
                 <br>
-                Τρόπος Πληρωμής
+                Means of payment
                 <br><br><br><br>
 
                 <input type="radio" id="visa" name="payment" value="visa">
@@ -122,35 +122,35 @@
                 <input type="radio" id="master" name="payment" value="master">
                 <img src="https://bit.ly/35IM31U" width="89" height="57">
                 <br><br>
-                @Html.TextBoxFor(payment => payment.cardCode, new {@class = "minimalInput", @placeholder = "ΧΧΧΧ-ΧΧΧΧ-ΧΧΧΧ-ΧΧΧΧ"})
+                @Html.TextBoxFor(payment => payment.cardCode, new { @class = "minimalInput", @placeholder = "ΧΧΧΧ-ΧΧΧΧ-ΧΧΧΧ-ΧΧΧΧ" })
                 <br>
-                @Html.ValidationMessageFor(payment => payment.cardCode, "", new {@class = "inputvalidate"})
+                @Html.ValidationMessageFor(payment => payment.cardCode, "", new { @class = "inputvalidate" })
                 <br><br>
-                @Html.TextBoxFor(cart => cart.CVV, new {@class = "minimalInput", @placeholder = "CVV"})
+                @Html.TextBoxFor(cart => cart.CVV, new { @class = "minimalInput", @placeholder = "CVV" })
                 <br>
-                @Html.ValidationMessageFor(cart => cart.CVV, "", new {@class = "inputvalidate"})
+                @Html.ValidationMessageFor(cart => cart.CVV, "", new { @class = "inputvalidate" })
             </td>
             @if ((string) Session["email"] != "")
             {
                 <td style="width: 33%; text-align: left; background-color: #74BCEC">
                     <div style="margin-left: 20px; margin-right: 20px;">
                         <br>
-                        Συνοψη Παραγγελίας:
+                        Order Summary:
                         <br><br><br><br>
 
-                        Όνομα Χρήστη: @Session["Username"]
+                        Username: @Session["Username"]
                         <br><br>
-                        Αποστολή εντός: 24 ωρών
+                        Shipping within: 24 hours
                         <br><br>
-                        Ποσό Παραγγελίας: @Model.CartPrice€ (ΦΠΑ : 24%)
+                        Order Amount: @Model.CartPrice€ (Tax : 24%)
                         <br>
                         +
                         <br>
-                        Μεταφορικά: @Model.Shipping
+                        Shipping: @Model.Shipping
                         <br><br>
                         <hr>
                         <br>
-                        Συνολικό Ποσό: @Model.TotalPrice€
+                        Final Price: @Model.TotalPrice€
 
                     </div>
                 </td>
@@ -167,7 +167,7 @@
     @{
         if(Model.CartPrice >= 1)
         {
-            @Html.ActionLink("Ολοκλήρωση παραγγελίας", "PaymentComplete", "Store", new {@class = "minimalButton"})
+            @Html.ActionLink("Complete Order", "PaymentComplete", "Store", new {@class = "minimalButton"})
         }
     }
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>

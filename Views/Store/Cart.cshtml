@@ -88,7 +88,7 @@
     }
     <div class="mainbody" style="margin: 0;">
 
-        <h2><span style="color: white;">Το προσωπικό σας Καλάθι Αγορών</span></h2>
+        <h2><span style="color: white;">My Cart:</span></h2>
 
         <table class="ShopTable" style="border-collapse: collapse; width: 75%; height: 90px; margin-left: auto; margin-right: auto;">
             <tr class="ShopTable">
@@ -119,7 +119,7 @@
                                     @prod.Price €
                                 </td>
                                 <td>
-                                    @Html.ActionLink("Αφαίρεση", "RemoveCart", "Store", prod, new { @class = "minimalButton" })
+                                    @Html.ActionLink("Remove from cart", "RemoveCart", "Store", prod, new { @class = "minimalButton" })
                                 </td>
                             </tr>
                         }
@@ -131,7 +131,7 @@
         @{
             if (Model.products.Count >= 1 )
             {
-                @Html.ActionLink("Συνέχεια", "Payment", "Store", null, new { @class = "minimalButton" })
+                @Html.ActionLink("Checkout", "Payment", "Store", null, new { @class = "minimalButton" })
             }
         }
     </div>

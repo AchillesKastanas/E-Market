@@ -123,7 +123,7 @@
 
 <body style="background-image: url('https://bit.ly/3iUfKEW'); background-size: cover;">
     <div class="mainbody" style="margin: 0;">
-        <h2 style="margin:5%;"><span style="color:white;">Καλοσωρίσατε στο Σουπερμάρκετ "Carts"</span></h2>
+        <h2 style="margin:5%;"><span style="color:white;">Welcome to the Supermarket "Carts"</span></h2>
         @if (Session["UserName"] == null)
         {
             <p>You are currently not logged in, <br> please log in or register first to be able to add items to your cart</p>
@@ -156,7 +156,7 @@
                             <td style="width:20% ; vertical-align:top;">
                                 <center>
                                     <div class="btn-group">
-                                        <button class="katigories" disabled>Κατηγορίες</button>
+                                        <button class="katigories" disabled>Categories</button>
                                         @using (Html.BeginForm("ShopDashBoard", "Store", FormMethod.Post))
                                         {
                                             <button class="button" name="submitButton" value="Dairies" type="submit">Dairies</button>
@@ -218,8 +218,8 @@
 
                     </table>
                 </center>
-                Η Τοποθεσία Μας<br>
-                <iframe style="margin:2%;" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3145.8806728067507!2d23.715700973584056!3d37.95657059928793!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xf1700ce05fe4ab8c!2sCinderella%20Shisha!5e0!3m2!1sen!2sgr!4v1624298409837!5m2!1sen!2sgr" width="1335" height="250" allowfullscreen="" loading="lazy">
+                Our Store Location<br>
+                <iframe style="margin:2%;" src="https://www.google.com/maps/embed/v1/place?key=API_KEY&q=Space+Needle,Seattle+WA" width="1335" height="250" allowfullscreen="" loading="lazy">
                 </iframe>
             </div>
 

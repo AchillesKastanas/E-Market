@@ -79,8 +79,8 @@
         Response.Redirect("/home/index");
     }
     <div class="mainbody" style="margin: 0;">
-    <h2 style="margin: 10%;"><span style="color: white;">Admin Page: Τροποποίηση Βάσης Δεδομένων</span></h2>
-    @Html.ActionLink("Εμφάνιση χρηστών", "AdminPageUsers", "Home", null, new {@class = "minimalButton"}) @Html.ActionLink("Εμφάνιση προϊόντων", "AdminPageProducts", "Home", null, new {@class = "minimalButton"})
+    <h2 style="margin: 10%;"><span style="color: white;">Admin Page</span></h2>
+    @Html.ActionLink("Show Users", "AdminPageUsers", "Home", null, new {@class = "minimalButton"}) @Html.ActionLink("Show Products", "AdminPageProducts", "Home", null, new {@class = "minimalButton"})
 
     <table class="payTable" style="border-collapse: collapse; margin-top: 5%; width: 75%; margin-left: auto; margin-right: auto;" border="1">
         <tr style="height: 70px; background-color: #74BCEC">
@@ -127,7 +127,7 @@
                     @user.Password
                 </td>
                 <td>
-                    @Html.ActionLink("Διαγραφή", "DeleteUser", "Home", user, new {@class = "minimalButton"})
+                    @Html.ActionLink("Delete", "DeleteUser", "Home", user, new {@class = "minimalButton"})
                 </td>
             </tr>
         }
