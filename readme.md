@@ -6,6 +6,7 @@ You first have to set Microsoft SQL Server Manager
 [Download SQL Server Management Studio (SSMS) - SQL Server Management Studio (SSMS)](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver15)
 
 ![8afcd9952bf1a39a20e92419ca938bdc.png](/_resources/47a9d2401d48466d97923d63e596626f.png)
+
 Connect to the local database 
 
 ![14d94930241319ba03c0fd07d36e1a5e.png](/_resources/159a02682713475ab01665786c9d7517.png)
@@ -41,4 +42,5 @@ For the code part, all you have to do is open the emarket.sln with visual studio
 and all should be ready! 
 
 ![895be7c41ac3da508cdc70dc588a072a.png](/_resources/f1b0bd8d87d74a82b2abcbad6adc912c.png)
+
 ![df2fd876a42ce13e741cb77af0a5e53c.png](/_resources/c0429716a4f34ed8a4b358f4ebd958b4.png)
